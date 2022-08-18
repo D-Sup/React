@@ -1,0 +1,49 @@
+<!-- setState part -->
+<html lang="en">  
+<body>
+    <div id="root"></div>
+</body>
+<!-- React Js - 어플리케이션이 interactive하도록 만들어주는 library -->
+<script src="https://unpkg.com/react@18/umd/react.development.js"></script>
+<!-- React dom - 모든 React element 들을 HTML body(HTML로 바꾸는)에 둘 수 있도록 해줌 -->
+<script src="https://unpkg.com/react-dom@18/umd/react-dom.development.js"></script>
+<!-- React JS로 element를 생성하는 방식 -->
+<script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+<script type="text/babel">
+
+    const root = document.getElementById("root");
+    // 함수에 state 더하기
+    // state를 바꾸는 두가지방법 중 첫번째 방법 
+    // 첫번째 방법 - (직접 값을 설정해주는 것)setCounter를 이용해서 우리가 원하는 값을 넣어주기 
+    // Rect는 전체를 전부 재생성 할 필요없이 바뀐부분만 새로 생성할 수 있게 도와줌 
+    function App () {
+        // const food = ["tomato","potato"]
+        // const [myFavFood, mySecondFavFood] = food;
+        // myFavFood - "tomato" /  mySecondFavFood - "potato"
+        const [counter, setCounter] = React.useState(0);
+        // React.useState의 첫 인자(data)가 ? 이고 , 두번째 인자(modifier) 는 ? 를 바꿀때 사용하는 함수
+        // 함수를 이용해서 데이터를 바꿨을 때, 데이터 값이 바뀌고 컴포넌트도 동시에 리렌더링 됨 = state가 바뀌면 리렌더링이 일어난다 
+        // modifier 함수를 이용해서 state를 바꾸면, 해당 컴포넌트가 재생성되고 다시 한번 실행됨
+        // return도 한번 더 실행되지만, 새로운 값을 가지고 실행될거임 
+        /* 아래와 같이 작동함 
+        let counter = 0;
+        function countUp() {
+            render();
+        }
+        */ 
+        const onClick = () => {
+            setCounter(counter + 1);
+        };
+         
+        return (
+            <div>
+                <h3>Hello I'm a span: {counter}</h3>
+                <button onClick={onClick}>Click me</button>
+            </div>
+        );
+    }
+    
+    ReactDOM.render(<App />, root);
+    
+</script>
+</html>

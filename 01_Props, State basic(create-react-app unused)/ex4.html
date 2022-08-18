@@ -1,0 +1,38 @@
+<!-- Understanding State -->
+<html lang="en">  
+<body>
+    <div id="root"></div>
+</body>
+<!-- React Js - 어플리케이션이 interactive하도록 만들어주는 library -->
+<script src="https://unpkg.com/react@18/umd/react.development.js"></script>
+<!-- React dom - 모든 React element 들을 HTML body(HTML로 바꾸는)에 둘 수 있도록 해줌 -->
+<script src="https://unpkg.com/react-dom@18/umd/react-dom.development.js"></script>
+<!-- React JS로 element를 생성하는 방식 -->
+<script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+<script type="text/babel">
+
+    const root = document.getElementById("root");
+    let counter = 0;
+    function countUp() {
+        counter = counter + 1;
+        render();
+    }
+    function render() {
+        ReactDOM.render(<Container />, root);
+    }
+    const Container = () => (
+        <div>
+            <h3>Hello I'm a span: {counter}</h3>
+            <button onClick={countUp}>Click me</button>
+        </div>
+    );
+    ReactDOM.render(<Container />, root);
+    // 코드가 실행되면 Container 컴포넌트가 렌더링될텐데 
+    // 그 말은 Container 코드가 React Element 가 될거라는 뜻 
+    // Container 컴포넌트를 렌더링하고 root에 담는데 
+    // 하지만 UI를 새로고침하고 있지 않기 때문에 카운터가 되지않음
+    // 그래서 counter 를 리렌더링하기 위해서 함수 마지막 부분에 똑같이 추가해주면 됨
+    // Container 컴포넌트가 바뀐 counter 값을 가지고 업데이트 
+    // 하지만 이것은 가장 좋은 방법이 아니고 다시 렌더링하는 걸 잊어서는 안되기 때문에 비 효율적
+</script>
+</html>

@@ -1,0 +1,57 @@
+<html lang="en">  
+<body>
+    <div id="root"></div>
+</body>
+<!-- React Js - 어플리케이션이 interactive하도록 만들어주는 library -->
+<script src="https://unpkg.com/react@18/umd/react.development.js"></script>
+<!-- React dom - 모든 React element 들을 HTML body(HTML로 바꾸는)에 둘 수 있도록 해줌 -->
+<script src="https://unpkg.com/react-dom@18/umd/react-dom.development.js"></script>
+<!-- React JS로 element를 생성하는 방식 -->
+<script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+<script type="text/babel">
+
+    const root = document.getElementById("root");
+
+    function Title() {
+        return (
+            <h3 id ="title" onMouseEnter={() => console.log("mouse enter")}>
+                Hello I'm a span
+            </h3>
+        );
+    }
+    
+    // = () => () 는 function ???() {return} 이랑 같다
+    // 즉, function이랑 return문을 이미 포함하고 있음 
+    // 이 함수는 button React Element를 반환하고 있음
+    
+    const Button = () => (
+        <button 
+            style={{
+                backgroundColor:"tomato",
+            }}
+            onClick={() => console.log("im clicked")}
+        >
+            Click me
+        </button>
+    );
+
+    const Container = () => (
+        <div>
+            <Title /> 
+            <Button />
+        </div>
+    );
+    ReactDOM.render(<Container />, root);
+
+/*
+    const Container = (
+        <div>
+            <Title /> 
+            <Button />
+        </div>
+    );
+    ReactDOM.render(Container, root);
+*/
+
+</script>
+</html>
