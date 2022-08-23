@@ -1,0 +1,59 @@
+<!-- Props -->
+<html lang="en">  
+<body>
+    <div id="root"></div>
+</body>
+<!-- React Js - 어플리케이션이 interactive하도록 만들어주는 library -->
+<script src="https://unpkg.com/react@18/umd/react.development.js"></script>
+<!-- React dom - 모든 React element 들을 HTML body(HTML로 바꾸는)에 둘 수 있도록 해줌 -->
+<script src="https://unpkg.com/react-dom@18/umd/react-dom.development.js"></script>
+<!-- React JS로 element를 생성하는 방식 -->
+<script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+<script type="text/babel">
+    // Props - 일종의 방식(부모 컴포넌트로부터 자식 컴포넌트에 데이터를 보낼 수 있게 해주는 방법) 
+    // 컴포넌트에 데이터를 보내기 위한 통로 
+    // 컴포넌트는 단지 함수(어떤 JSX를 반환하는.)
+    // 전달된 모든 prop들을 하나의 오브젝트로서 받음 
+    // props는 오브젝트이기 때문에 ES6의 방법(오브젝트로부터 요소를 받아내는)인 "{}" 중괄호를 열어서 받아 올 수 있음
+    // {props.banana} 가 아닌 {banana}로 오브젝트로부터 banana를 받을 수 있음
+    function Btn({banana, big }){
+    // function Btn(props){
+        console.log(banana, big);
+        return (
+            <button 
+                style={{
+                    backgroundColor: "tomato",
+                    color: "white",
+                    padding:"10px 20px",
+                    border: 0,
+                    borderRadius: 10,
+                    fontSize: big? 18 : 12,
+                }}
+            >
+            {banana}
+            </button>
+        );
+        //{props.banana}
+        // fontSize: big? 18 : 16, - style 안에서 prop 기반으로 if else도 사용할 수 있음 
+    }
+
+    function App () {
+        return (
+            <div>
+                <Btn banana="Save Changes" big={true}/>
+                <Btn banana="Continue" big={false}/>
+            </div>   
+        );   
+        // <SaveBtn /> - 함수형 컴포넌트
+        // <div> <SaveBtn /><confirmBtn /> </div> - JSX의 내부
+        // 새로운 정보를 Btn 컴포넌트에 전송할거임 
+        // 모든 컴포넌트들은 "()" 괄호로 argument를 받는데 리액트가 넣어주는 것을 의미함
+        // 괄호에 들어가는 인자이름을 props라고 부름 즉, Btn으로부터 전달 받는 properties를 뜻함 
+        // 인자 이름은 마음대로 지정해주면 됨 
+        // prop의 이름을 변경한다면 마찬가지로 컴포넌트의 argument도 변경해줘야함 
+        // Btn 이라는 이름의 함수를 부르고 있는 것이고 그리고 정보를 이 함수에 전송하고 있는 것
+        // Btn({banana="Save Changes"}) 이런 식으로 인자값이 들어감 
+    }
+    ReactDOM.render(<App />, root);
+</script>
+</html>

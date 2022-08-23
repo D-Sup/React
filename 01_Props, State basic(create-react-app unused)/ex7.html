@@ -1,0 +1,69 @@
+<!-- Inputs and State / State Practice part -->
+<html lang="en">  
+<body>
+    <div id="root"></div>
+</body>
+<!-- React Js - 어플리케이션이 interactive하도록 만들어주는 library -->
+<script src="https://unpkg.com/react@18/umd/react.development.js"></script>
+<!-- React dom - 모든 React element 들을 HTML body(HTML로 바꾸는)에 둘 수 있도록 해줌 -->
+<script src="https://unpkg.com/react-dom@18/umd/react-dom.development.js"></script>
+<!-- React JS로 element를 생성하는 방식 -->
+<script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+<script type="text/babel">
+
+    const root = document.getElementById("root");
+    function App () {
+        // jsx 와 HTML과 비슷하지만 주의해야될 사항
+        // 1. class를 사용하면 안되고 className을 사용해야함
+        // 2. for 을 못씀 (javascript 언어이기때문에) htmlFor이라고 써야함
+        const [amount, setAmount] = React.useState(0)
+        // amount -> Minutes
+        // setAmount -> setMinutes
+        const [inverted, setInverted] = React.useState(false);
+        // flipped -> inverted
+        // setFlipped -> setInverted
+        // target - 방금 바뀐 input
+        const onChange = (event) => {
+            setAmount(event.target.value);
+        };
+        const reset = () => setAmount(0);
+        //const onFlip = () => setInverted(!inverted);
+        // current가 확실히 현재 값이라는 걸 보장하기 때문에 수정 
+        const onInvert = () => {
+            reset();
+            setInverted(current => !current);
+        };
+        // 이벤트가 일어났을 때 업데이트가 이루어지기 위해선 아래 세가지가 모두 필요 
+        // 1. event를 들어주는 것 하나 onChange={onChange}
+        // 2. event가 발생했을 때, 값을 업데이트해주고 setMinutes(event.target.value);
+        // 3. UI에 보여주는것 하나 value={minutes}
+        return (
+            <div>
+                <h1>Super Converter</h1>
+                <div>
+                    <label htmlFor="minutes">Minutes</label>
+                    <input value={inverted ? amount * 60 : amount} id="minutes" placeholder="Minutes" type="number" onChange={onChange} disabled={inverted === true}/>
+                </div>
+                
+                <div>
+                    <label htmlFor="Hours">Hours</label>
+                    <input value={inverted ? amount : Math.round(amount / 60)} id="Hours" placeholder="Hours" type="number" onChange={onChange} disabled={!inverted}/>
+                </div>
+                <button onClick={reset}>Reset</button>
+                <button onClick={onInvert}>{inverted ? "Turn back" : "Invert"}</button>
+                
+            </div>
+        );
+        // inverted ? minutes : Math.round(minutes / 60)
+        // inverted 상태라면(if) state에 있는 값을 그대로 보여줌 
+        // inverted 상태라는 것은 input에다가 입력한다는 것 
+        // 즉, 입력한 값은 그대로 보여주면 inverted 상태가 되고 
+        // 다른 부분은 inverted 상태가 아니기 때문에 계산한 상태로 보여짐 
+        // inverted 상태가 아니라면 변환된 값을 보여줌 
+        
+    }
+    
+    ReactDOM.render(<App />, root);
+    
+</script>
+</html>

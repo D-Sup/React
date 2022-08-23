@@ -1,0 +1,54 @@
+<!-- Prop Types -->
+<html lang="en">  
+<body>
+    <div id="root"></div>
+</body>
+<!-- React Js - 어플리케이션이 interactive하도록 만들어주는 library -->
+<script src="https://unpkg.com/react@18/umd/react.development.js"></script>
+<!-- React dom - 모든 React element 들을 HTML body(HTML로 바꾸는)에 둘 수 있도록 해줌 -->
+<script src="https://unpkg.com/react-dom@18/umd/react-dom.development.js"></script>
+<!-- React JS로 element를 생성하는 방식 -->
+<script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+
+<!-- + -->
+<!-- prop들의 type이 어떻게 되는지 알 수 있게 해줌 -->
+<script src="https://unpkg.com/prop-types@15.7.2/prop-types.js"></script>
+
+<script type="text/babel">
+    // fontSize = 14 기본 값 정의되지 않은 변수에 관한 기본값을 줄 수 있음 (이건 React가아닌 javascript 문법)
+    function Btn({text, fontSize = 14}){
+        console.log(text, "was rendered");
+        return (
+            <button 
+                style={{
+                    backgroundColor: "tomato",
+                    color: "white",
+                    padding:"10px 20px",
+                    border: 0,
+                    borderRadius: 10,
+                    fontSize,
+                }}
+            >
+            {text}
+            </button>
+        );
+    }
+    // 어떤 컴포넌트가 prop들만을 정확히 갖고 render 될 것이라는걸 확실히하고 싶으면 .isRequired
+    // .isRequired - 누군가가 Btn 컴포넌트를 render한다면 아래와 같이 text는 반드시 존재해야 될것임
+    // 잘못된 타입으로 작동되는 것을 방지하기 위해 사용
+    // 만약 이것을 사용하지 않는다면 React는 감지하지 못함
+    Btn.propTypes = {
+        text: PropTypes.string.isRequired,
+        fontSize: PropTypes.number,
+    };
+    function App () {
+        return (
+            <div>
+                <Btn text="Continue" fontSize={18}/>
+                <Btn text={"Continue"}/>
+            </div>   
+        );    
+    }
+    ReactDOM.render(<App />, root);
+</script>
+</html>

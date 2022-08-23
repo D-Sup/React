@@ -1,0 +1,54 @@
+<!-- Memo -->
+<html lang="en">  
+<body>
+    <div id="root"></div>
+</body>
+<!-- React Js - 어플리케이션이 interactive하도록 만들어주는 library -->
+<script src="https://unpkg.com/react@18/umd/react.development.js"></script>
+<!-- React dom - 모든 React element 들을 HTML body(HTML로 바꾸는)에 둘 수 있도록 해줌 -->
+<script src="https://unpkg.com/react-dom@18/umd/react-dom.development.js"></script>
+<!-- React JS로 element를 생성하는 방식 -->
+<script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+<script type="text/babel">
+    function Btn({text, ChangeValue}){
+        console.log(text, "was rendered");
+        return (
+            <button 
+            onClick={ChangeValue}
+                style={{
+                    backgroundColor: "tomato",
+                    color: "white",
+                    padding:"10px 20px",
+                    border: 0,
+                    borderRadius: 10,
+                }}
+            >
+            {text}
+            </button>
+        );
+    }
+    const MemorizedBtn = React.memo(Btn)
+    // 부모의 상태를 바꿔주는 함수 
+    function App () {
+        const [value, setValue] = React.useState("Save Changes");
+        const ChangeValue = () => setValue("Revert Changes");
+        return (
+            <div>
+                <MemorizedBtn text={value} ChangeValue={ChangeValue} />
+                <MemorizedBtn text="Continue" />
+            </div>   
+        );    
+        // 만약 함수형 컴포넌트 안에 onClick을 입력했다고 해도 이건 이벤트리스너가 아닌 prop의 이름으로 인식함 
+        // 마찬가지로 style = {{ color: "green"}} 이런 식으로 입력해도 작동하지 않음 
+        // 그 이유는 style은 직접적으로 button에 달리지 않기 때문에 prop들을 가져와서 적용시켜야만 함 onClick={ChangeValue}
+        // 올바른 예로 위와 같이 onClick을 추가해줘야함 
+        // prop들은 직접적으로 return문으로 들어가지 않기에 prop들을 넣어야함 function Btn({text, ChangeValue}){
+            
+        // React Memo - 리렌더링 될때 어떤 컴포넌트가 다시 그려지는 것을 원치 않을 때 
+        // 원하는 컴포넌트를 다시 그릴지 어떨지, prop이 변경되지 않는 한에서 
+        // 나중을 생각했을 때 모든 컴포넌트가 리렌더링 된다면 어플리케이션이 느려지는 원인으로 작용할 수 있기때문에 필요한 기술 
+        // 리렌더링 된다는 것 = state가 변했다는 것 = state는 prop에 연결되어 있다는 것 = prop이 변했다는 것
+    }
+    ReactDOM.render(<App />, root);
+</script>
+</html>

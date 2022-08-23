@@ -1,0 +1,44 @@
+<html lang="en">  
+<body>
+    <div id="root"></div>
+</body>
+<!-- React Js - 어플리케이션이 interactive하도록 만들어주는 library -->
+<script src="https://unpkg.com/react@18/umd/react.development.js"></script>
+<!-- React dom - 모든 React element 들을 HTML body(HTML로 바꾸는)에 둘 수 있도록 해줌 -->
+<script src="https://unpkg.com/react-dom@18/umd/react-dom.development.js"></script>
+<!-- React JS로 element를 생성하는 방식 -->
+<script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+<script type="text/babel">
+    // React JS는 유저에게 보여질 내용을 컨트롤할 수 있다는 것!
+    const root = document.getElementById("root");
+    // JSX - JavaScript를 확장한 문법으로 
+    // HTML에서 사용한 문법과 흡사한 문법을 사용 
+    
+    const h3 = React.createElement(
+        // 첫번째 argument - root에 들어갈 HTML 태그
+        "h3", 
+        // 두 번째 argument - props가 포함된 object
+        {
+        id: "title",
+        onMouseEnter: () => console.log("mouse enter")
+        }, 
+        // 세 번째는 content
+        "Hello I'm a span"
+    );
+
+    const btn = React.createElement("button",{
+        onClick: () => console.log("im clicked"),
+        style: {
+            backgroundColor:"tomato",
+        }
+    }, "Click me");
+    
+
+    
+    const container = React.createElement("div", null, [h3, btn]);
+    // render - React element를 가지고 HTML로 만들어 배치한다
+    ReactDOM.render(container, root);
+    
+</script>
+</html>
+
